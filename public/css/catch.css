@@ -10269,6 +10269,7 @@ width: 40%;
     border: 1px solid rgb(221, 221, 221);
     margin-bottom: 16px;
     position: relative;
+    padding: 16px 16px 0rem;
 }
 
 .css-1msfinh {
@@ -10310,12 +10311,7 @@ width: 40%;
     color: rgb(255, 255, 255);
 }
 
-.css-is1htt {
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(221, 221, 221);
-    margin-bottom: 16px;
-    position: relative;
-}
+
 
 .css-efv112 {
     position: relative;
@@ -10473,4 +10469,53 @@ width: 40%;
     border-right-color: rgb(221, 221, 221);
     border-bottom-color: rgb(221, 221, 221);
     border-left-color: rgb(221, 221, 221);
+}
+
+.css-12pfgnu {
+    font-size: 0.875rem;
+    font-family: Biennale, Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    line-height: 1.4;
+}
+
+.css-12pfgnu ol li,
+.css-12pfgnu ul li {
+    margin-bottom: 5px;
+}
+
+.css-12pfgnu em {
+    font-style: normal;
+}
+
+.css-12pfgnu p[class*="subtitle"],
+.css-12pfgnu p[class^="subtitle"] {
+    display: -webkit-box;
+    display: -webkit-list-item;
+    display: -ms-list-itembox;
+    display: list-item;
+    list-style-type: disc;
+    margin-left: 40px;
+}
+
+.css-12pfgnu .justify {
+    text-align: justify;
+}
+
+.css-12pfgnu .footer-text {
+    font-weight: 400;
+}
+
+.css-12pfgnu .footer-text--srp p {
+    display: inline;
+}
+
+.css-12pfgnu img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.css-1qtcsfm {
+    display: flex;
+    margin-bottom: 20px;
 }

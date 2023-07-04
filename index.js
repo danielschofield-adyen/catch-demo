@@ -8,6 +8,7 @@ const { uuid } = require("uuidv4");
 const { hmacValidator } = require('@adyen/api-library');
 const { Client, Config, CheckoutAPI } = require("@adyen/api-library");
 
+
 // init app
 const app = express();
 // setup request logging
@@ -45,46 +46,26 @@ app.set("view engine", "handlebars");
 
 /* ################# API ENDPOINTS ###################### */
 
-// Invoke /sessions endpoint
-app.post("/api/sessions", async (req, res) => {
 
+app.post("/api/getPaymentMethods:shopperReference", async (req, res) => {
   try {
-    // unique ref for the transaction
-    const orderRef = uuid();
-    // Allows for gitpod support
-    const localhost = req.get('host');
-    // const isHttps = req.connection.encrypted;
-    const protocol = req.socket.encrypted? 'https' : 'http';
-    // Ideally the data passed here should be computed based on business logic
-    const response = await checkout.sessions({
-      amount: { currency: "AUD", value: 10000 }, // value is 100€ in minor units
-      countryCode: "AU",
-      merchantAccount: process.env.MERCHANT_ACCOUNT, // required
-      reference: orderRef, // required: your Payment Reference
-      returnUrl: `${protocol}://${localhost}/checkout?orderRef=${orderRef}`, // set redirect URL required for some payment methods (ie iDEAL)
-      shopperReference: process.env.SHOPPER_REFERENCE,
-      shopperEmail: process.env.SHOPPER_EMAIL,
-      recurring:{ contract:"RECURRING,ONECLICK"},
-      // set lineItems required for some payment methods (ie Klarna)
-      lineItems: [
-        {quantity: 1, amountIncludingTax: 1000 , description: "item"}
-      ] 
-    });
-
-    res.json(response);
-  } catch (err) {
-    console.error(`Error: ${err.message}, error code: ${err.errorCode}`);
-    res.status(err.statusCode).json(err.message);
-  }
-});
-
-app.post("/api/getPaymentMethods", async (req, res) => {
-  try {
-    const response = await checkout.paymentMethods({
+    var tempShopperReference = req.params.shopperReference;
+    console.log("Inside getPaymentMethods: "+tempShopperReference);
+    
+    var request = {
       channel: "Web",
       merchantAccount: process.env.MERCHANT_ACCOUNT,
-      shopperReference: process.env.SHOPPER_REFERENCE,
-    });
+    }
+    var shopperReference = req.params.shopperReference;
+    if(shopperReference != ":null"){
+      request["shopperReference"] = shopperReference;
+    }
+    
+
+
+    const response = await checkout.paymentMethods(request);
+
+
     res.json(response);
   } catch (err) {
     console.error(`Error: ${err.message}, error code: ${err.errorCode}`);
@@ -95,7 +76,7 @@ app.post("/api/getPaymentMethods", async (req, res) => {
 
 const paymentDataStore = {};
  
-app.post("/api/initiatePayment", async (req, res) => {
+app.post("/api/initiatePayment:shopperReference", async (req, res) => {
   try {
     // unique ref for the transaction
     const orderRef = uuid();
@@ -104,9 +85,7 @@ app.post("/api/initiatePayment", async (req, res) => {
     // const isHttps = req.connection.encrypted;
     const protocol = req.socket.encrypted? 'https' : 'http';
 
-    // Ideally the data passed here should be computed based on business logic
-    const response = await checkout.payments({
-
+    var request = {
       amount: { currency: "AUD", value: 10000 }, // value is 100€ in minor units
       countryCode: "AU",
       merchantAccount: process.env.MERCHANT_ACCOUNT, // required
@@ -116,18 +95,28 @@ app.post("/api/initiatePayment", async (req, res) => {
       returnUrl: `${protocol}://${localhost}/api/handleShopperRedirect?orderRef=${orderRef}`, // required for redirect flow
       browserInfo: req.body.browserInfo,
       paymentMethod: req.body.paymentMethod, // required
-      shopperInteraction:"Ecommerce",
-      recurringProcessingModel: "CardOnFile",
-      shopperReference: process.env.SHOPPER_REFERENCE,
-      shopperEmail: process.env.SHOPPER_EMAIL,
-      recurring:{ contract:"RECURRING,ONECLICK"},
-      storePaymentMethod:true,
       // set lineItems required for some payment methods (ie Klarna)
       lineItems: [
-        {quantity: 1, amountIncludingTax: 1000 , description: "item"}
+        {quantity: 1, amountIncludingTax: 39395 , description: "Apple AirPods Pro"}
       ] 
-    });
+    }
+
+    var shopperReference = req.params.shopperReference;
+    if(shopperReference != ":null"){
+      request["shopperReference"] = shopperReference;
+      request["shopperEmail"] = shopperReference;
+      request["recurringProcessingModel"] = "CardOnFile";
+      request["recurring"] = {"contract":"RECURRING,ONECLICK"};
+      request["storePaymentMethod"] = true;
+    }
+
+    console.log(JSON.stringify(request,0,4));
+
+    // Ideally the data passed here should be computed based on business logic
+    const response = await checkout.payments(request);
  
+
+
     const { action } = response;
  
     if (action) {
@@ -206,7 +195,7 @@ app.post("/api/submitAdditionalDetails", async (req, res) => {
 /* ################# CLIENT SIDE ENDPOINTS ###################### */
 
 // Index (select a demo)
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("product"));
 
 // Cart (continue to checkout)
 app.get("/preview", (req, res) =>
@@ -220,7 +209,16 @@ app.get("/checkout", (req, res) =>
   res.render("checkout", {
     type: req.query.type,
     clientKey: process.env.CLIENT_KEY,
-    shopperReference:req.params.shopperReference
+    shopperReference:"null"
+  })
+);
+
+// Checkout page (make a payment)
+app.get("/checkout2", (req, res) =>
+  res.render("checkout2", {
+    type: req.query.type,
+    clientKey: process.env.CLIENT_KEY,
+    shopperReference:req.query.shopperReference
   })
 );
 

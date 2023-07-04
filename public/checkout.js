@@ -1,5 +1,6 @@
 const clientKey = document.getElementById("clientKey").innerHTML;
 const type = document.getElementById("type").innerHTML;
+const shopperReference = document.getElementById("shopperReference").innerHTML;
 
 // Used to finalize a checkout call in case of redirect
 const urlParams = new URLSearchParams(window.location.search);
@@ -10,12 +11,14 @@ async function startCheckout() {
   
   try
   {
-    const paymentMethodsResponse = await callServer("/api/getPaymentMethods");
+    const paymentMethodsResponse = await callServer("/api/getPaymentMethods:"+shopperReference);
+    console.log("ShopperReference: "+shopperReference);
     const configuration = {
         paymentMethodsResponse: paymentMethodsResponse,
         clientKey,
         locale: "en_AU",
-        environment: "test",  // change to live for production
+        environment: "test",
+        showPayButton: false,  // change to live for production
         paymentMethodsConfiguration: {
             ideal: {
                 showImage: true
@@ -38,7 +41,7 @@ async function startCheckout() {
         },
         onSubmit: (state, component) => {
           if (state.isValid) {
-            handleSubmission(state, component, "/api/initiatePayment");
+            handleSubmission(state, component, "/api/initiatePayment:"+shopperReference);
           }
         },
         onAdditionalDetails: (state, component) => {
@@ -54,6 +57,13 @@ async function startCheckout() {
 
     const checkout = await AdyenCheckout(configuration);
     const checkoutObj = checkout.create(type).mount(document.getElementById(type));
+
+    //grab button from frontend
+    //assign onClick to addlistener
+    var checkoutButton = document.getElementById("completeCheckout");
+    var checkoutButton2 = document.getElementById("completeCheckout2");
+    if(checkoutButton) checkoutButton.addEventListener("click",() => checkoutObj.submit());
+    if(checkoutButton2) checkoutButton2.addEventListener("click",() => checkoutObj.submit());
 
   } catch (error) {
     console.error(error);

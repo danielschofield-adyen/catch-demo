@@ -3949,44 +3949,64 @@
                 <h1>Checkout</h1>
 
 
-                <section class="guest-checkout-form">
-                  <input hidden="hidden" type="radio" id="guest_address" name="delivery_address" value="guest"
-                    checked="checked">
-
-                  <div class="react-guest-checkout-login-form">
-                    <div class="guest-checkout-wrapper">
-                      <div class="flex-grid-row">
-                        <div class="flex-col-half guest-checkout-form__sign-in-wrapper">
-                          <div class="input-container">Already have an account?<button type="button"
-                              class="btn x-small no-min-width guest-checkout-form__sign-in-button js-link-click">Sign
-                              in</button></div>
-                        </div>
-                        <div class="flex-col-half">
-                          <div class="input-container"><label class="required" for="emailAddress">Email <span
-                                class="label-subtext">(to send your order confirmation)</span></label>
-                            <div class="input-wrapper"><input name="emailAddress" type="email" id="emailAddress"
-                                class="input-control input-email" value=""></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-<div class="bordered-content checkout-shipping-options js-shipping-methods-container">
+                <div class="bordered-content checkout-shipping-options js-shipping-methods-container">
     <header class="bordered-content-header mini primary js-delivery-address-header">
         <h4>Delivery</h4>
                     <div class="right-link">
                 <button type="button" id="another-address-link" class="btn white-outline mini no-min-width hidden">Change</button>
-                <button type="button" id="new-address-link" class="btn white-outline mini no-min-width new-address-link js-new-address-link hidden">New</button>
+                <button type="button" id="new-address-link" class="btn white-outline mini no-min-width new-address-link js-new-address-link show">New</button>
             </div>
             </header>
             
     
+                            <section id="address-list" class="checkout-addresses clearfix single-address dd-privacy-hidden">
+
+                                                    <div class="checkout-address three-col js-checkout-address selected">
+                        <div class="group-radio-checkbox radio">
+                            <input type="radio" checked="checked" id="address-16368109" name="delivery_address" value="16368109" data-postcode="2203" data-location-type="1" autocomplete="off">
+                            <label for="address-16368109">
+                                                                                                                                                                            
+                                <div class="checkout-shipment-option">
+                                    <div class="checkout-shipment-option__label">
+                                                                                    <div class="cart-items__option-icon">
+                                                <img src="https://s.catch.com.au/static/catch/images/icon-house-390ea2194f.svg" alt="Standard Shipping">
+                                            </div>
+                                            <span class="js-delivery-title" data-shipment-option="1">
+                                            Standard Shipping
+                                            </span>
+                                                                            </div>
+                                    <div class="checkout-shipment-option__value">
+                                        <span class="js-shipping" data-shipment-option="1">
+                                                                                            <strong class="text-primary">FREE</strong>
+                                                                                    </span>
+                                    </div>
+                                </div>
+                                <p class="address-name needsclick">Daniel Schofield</p>
+                                                                255 RILEY STREET<br>
+                                                                SURRY HILLS, 2000<br>
+                                NEW SOUTH WALES<br>
+                                Ph: 0411111111                            </label>
+                                                    </div>
+                    </div>
                 
-                        <section id="new-address" class="padded-content-grid-spacing new-address">
+                <div id="address-confirmation-dialog" class="checkout-address__confirmation-dialog">
+                    <div class="triangle"></div>
+                    <div>
+                        <h4>Just confirming...</h4>
+                        <p>Is this where we're sending your order to?</p>
+                        <div class="btn-container">
+                            <button class="btn small error outline js-address-confirmation__button--oops">Oops...</button>
+                            <button class="btn small success js-address-confirmation__button--yes">Yes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <input hidden="hidden" type="radio" id="new_address" name="delivery_address" value="new" autocomplete="off">
+            </section>
+
+                        <section id="new-address" class="padded-content-grid-spacing new-address hidden">
                 <div class="group-radio-checkbox radio block selected">
-                    <input hidden="hidden" type="radio" name="delivery_address" value="guest" id="new_address" class="js-shipment-radio-option" checked="checked" autocomplete="off">
+                    <input type="radio" name="shipment-option" value="1" id="shipment-option-1" class="js-shipment-radio-option" checked="checked" autocomplete="off">
                     <label for="shipment-option-1" class="checkout-shipment-option" data-shipment-option="1">
                         <div class="checkout-shipment-option__label">
                             <div class="cart-items__option-icon">
@@ -4009,22 +4029,22 @@
 
 <div class="grid-row js-condensed-address-row dd-privacy-hidden">
     <div class="one-col">
-        <div class="react-condensed-address-form"><div class="dd-privacy-hidden"><label id="condensed_address_label" for="condensed_address" class="required">Delivery Address</label><div class="input-container"><div class="ais-InstantSearch__root"><div><div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1" aria-expanded="false" class="condensed-address-autocomplete__container"><input type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="input-control input-condensed-address" id="condensed_address" name="condensed_address" placeholder="e.g. Unit 5 20 Victoria Street, ELSTERNWICK VIC 3185" disabled="" value=""><div id="react-autowhatever-1" role="listbox" class="condensed-address-autocomplete__suggestions-container"><div class="condensed-address-autocomplete__suggestions-scrolling-container"></div><button type="button" class="condensed-address__manual-entry-button js-link-click btn plain full">Can't find your address? Enter manually</button></div></div></div></div></div></div></div>
+        <div class="react-condensed-address-form"><div class="dd-privacy-hidden"><label id="condensed_address_label" for="condensed_address" class="required">Delivery Address</label><div class="input-container"><div class="ais-InstantSearch__root"><div><div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1" aria-expanded="false" class="condensed-address-autocomplete__container"><input type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="input-control input-condensed-address" id="condensed_address" name="condensed_address" placeholder="e.g. Unit 5 20 Victoria Street, ELSTERNWICK VIC 3185" value=""><div id="react-autowhatever-1" role="listbox" class="condensed-address-autocomplete__suggestions-container"><div class="condensed-address-autocomplete__suggestions-scrolling-container"></div><button type="button" class="condensed-address__manual-entry-button js-link-click btn plain full">Can't find your address? Enter manually</button></div></div></div></div></div></div></div>
     </div>
 </div>
 
 <div class="grid-row dd-privacy-hidden">
     <div class="two-col">
-            <div class="input-container"><label class="required" for="address_firstName">First name</label><input type="text" id="address_firstName" name="address[firstName]" disabled="" placeholder="John" maxlength="32" class="input-control input-firstName js-delivery-input disabled" autocomplete="off"></div>
+            <div class="input-container"><label class="required" for="address_firstName">First name</label><input type="text" id="address_firstName" name="address[firstName]" placeholder="John" maxlength="32" class="input-control input-firstName js-delivery-input" autocomplete="off"></div>
     </div>
     <div class="two-col">
-            <div class="input-container"><label class="required" for="address_lastName">Last name</label><input type="text" id="address_lastName" name="address[lastName]" disabled="" placeholder="Smith" maxlength="32" class="input-control input-lastName js-delivery-input disabled" autocomplete="off"></div>
+            <div class="input-container"><label class="required" for="address_lastName">Last name</label><input type="text" id="address_lastName" name="address[lastName]" placeholder="Smith" maxlength="32" class="input-control input-lastName js-delivery-input" autocomplete="off"></div>
     </div>
 </div>
 
 <div class="grid-row dd-privacy-hidden">
     <div class="two-col">
-            <div class="input-container"><label class="required" for="address_phone">Phone</label><input type="text" id="address_phone" name="address[phone]" disabled="" placeholder="e.g. 0412345678" maxlength="10" class="input-control input-phone js-delivery-input disabled" autocomplete="off"></div>
+            <div class="input-container"><label class="required" for="address_phone">Phone</label><input type="text" id="address_phone" name="address[phone]" placeholder="e.g. 0412345678" maxlength="10" class="input-control input-phone js-delivery-input" autocomplete="off"></div>
     </div>
             <div class="two-col company-name-toggle js-company-name-toggle">
             <div class="input-container condensed-address-form__company-name-btn-container">
@@ -4034,26 +4054,26 @@
             </div>
         </div>
         <div class="two-col company-name-toggle js-company-name-toggle hidden">
-                <div class="input-container"><label for="address_companyName">Company name</label><input type="text" id="address_companyName" name="address[companyName]" disabled="" placeholder="" maxlength="32" class="input-control input-companyName js-delivery-input disabled" autocomplete="off"></div>
+                <div class="input-container"><label for="address_companyName">Company name</label><input type="text" id="address_companyName" name="address[companyName]" placeholder="" maxlength="32" class="input-control input-companyName js-delivery-input" autocomplete="off"></div>
         </div>
     </div>
 
 <div class="js-old-address-form hidden dd-privacy-hidden">
         <div class="grid-row">
         <div class="two-col">
-                <div class="input-container"><label class="required" for="address_street1">Street line 1</label><input type="text" id="address_street1" name="address[street1]" disabled="" placeholder="123 City St" maxlength="40" class="input-control input-street1 js-delivery-input ui-autocomplete-input disabled" autocomplete="off"></div>
+                <div class="input-container"><label class="required" for="address_street1">Street line 1</label><input type="text" id="address_street1" name="address[street1]" placeholder="123 City St" maxlength="40" class="input-control input-street1 js-delivery-input ui-autocomplete-input" autocomplete="off"></div>
         </div>
         <div class="two-col">
-                <div class="input-container"><label for="address_street2">Street line 2</label><input type="text" id="address_street2" name="address[street2]" disabled="" placeholder="" maxlength="40" class="input-control input-street2 js-delivery-input disabled" autocomplete="off"></div>
+                <div class="input-container"><label for="address_street2">Street line 2</label><input type="text" id="address_street2" name="address[street2]" placeholder="" maxlength="40" class="input-control input-street2 js-delivery-input" autocomplete="off"></div>
         </div>
     </div>
 
         <div class="grid-row">
         <div class="two-col">
-                <div class="input-container"><label class="required" for="address_postcode">Postcode</label><input type="text" id="address_postcode" name="address[postcode]" placeholder="3000" maxlength="4" class="input-control input-postcode js-delivery-input ui-autocomplete-input disabled" autocomplete="off" disabled=""></div>
+                <div class="input-container"><label class="required" for="address_postcode">Postcode</label><input type="text" id="address_postcode" name="address[postcode]" placeholder="3000" maxlength="4" class="input-control input-postcode js-delivery-input ui-autocomplete-input" autocomplete="off"></div>
         </div>
         <div class="two-col">
-                <div class="input-container"><label class="required" for="address_suburb">Suburb</label><input type="text" id="address_suburb" name="address[suburb]" placeholder="MELBOURNE" maxlength="32" class="input-control input-suburb js-delivery-input ui-autocomplete-input disabled" autocomplete="off" disabled=""></div>
+                <div class="input-container"><label class="required" for="address_suburb">Suburb</label><input type="text" id="address_suburb" name="address[suburb]" placeholder="MELBOURNE" maxlength="32" class="input-control input-suburb js-delivery-input ui-autocomplete-input" autocomplete="off"></div>
         </div>
     </div>
 
@@ -4063,62 +4083,46 @@
                 <label class="required" for="address_state">State</label>
                 <div class="input-container">
                     <div class="select-container">
-                                                    <select id="address_state" name="address[state]" disabled="" placeholder="" class="input-control input-state js-delivery-input disabled" autocomplete="off"><option value="">Choose a state</option><option value="Australian Capital Territory">Australian Capital Territory</option><option value="New South Wales">New South Wales</option><option value="Northern Territory">Northern Territory</option><option value="Queensland">Queensland</option><option value="South Australia">South Australia</option><option value="Tasmania">Tasmania</option><option value="Victoria">Victoria</option><option value="Western Australia">Western Australia</option></select>
+                                                    <select id="address_state" name="address[state]" placeholder="" class="input-control input-state js-delivery-input" autocomplete="off"><option value="">Choose a state</option><option value="Australian Capital Territory">Australian Capital Territory</option><option value="New South Wales">New South Wales</option><option value="Northern Territory">Northern Territory</option><option value="Queensland">Queensland</option><option value="South Australia">South Australia</option><option value="Tasmania">Tasmania</option><option value="Victoria">Victoria</option><option value="Western Australia">Western Australia</option></select>
                                             </div>
                 </div>
             </div>
         </div>
     </div>
-    <input type="hidden" id="address_primary" name="address[primary]" value="true">
-    
+        
+    <div class="grid-row dd-privacy-hidden">
+        <div class="two-col">
+            <div class="input-container">
+                <div class="group-radio-checkbox no-margin">
+                    <input type="checkbox" id="address_primary" name="address[primary]" class="js-delivery-input" value="1">
+                    <label for="address_primary">Set as primary address</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <input type="hidden" id="address_country" name="address[country]" value="Australia">
     <input type="hidden" id="address_locationType" name="address[locationType]" value="1">
     <input type="hidden" id="address__token" name="address[_token]" value="OaTbkQTIJRgy6t-f7jpKJeD2iC54WGRJFm6zYEmVoiE">
             </section>
+
         
+                    <div class="shipment-option js-shipment-option js-new-standard-address-option">
+                <div class="group-radio-checkbox radio js-new-address-link" id="new-address-link">
+                    <label>
+                        <div class="address-name needsclick checkout-shipment-option__label">
+                            <div class="cart-items__option-icon">
+                                <img src="https://s.catch.com.au/static/catch/images/icon-house-390ea2194f.svg" alt="Standard Shipping">
+                            </div>
+                            <span class="js-parcel-delivery-title" data-option="1">
+                                Enter New Address
+                            </span>
+                        </div>
+                    </label>
+                </div>
+            </div>
             
     </div>
-
-
-
-                <div id="shipping-options-block" data-block="input-block"
-                  class="shipping-options-block bordered-content">
-
-                  <section id="shipping-options">
-                    <div class="bordered-content-header mini highlight"></div>
-
-                    <div class="bordered-content-body">
-                      <div class="express-post-block" id="express-post-block">
-                        <div class="group-radio-checkbox radio block">
-                          <input type="checkbox" id="express-post" name="shipping">
-                          <label class="highlight ico-plus" for="express-post">
-                            <div class="express-post-option">
-                              <div class="express-post-icon">
-                                <img src="https://s.catch.com.au/static/catch/images/icon-truck-3a801fdcf1.svg"
-                                  alt="Upgrade to Express Delivery" class="img-responsive">
-                              </div>
-
-                              <span id="express-post-title">
-                                Upgrade to Express Delivery&nbsp;
-                              </span>
-
-                              <span class="tooltip-trigger mini inline info">
-                                <div class="tooltip right" style="width: 200px">
-                                  Express shipping is still the fastest way to receive your order. Please note that our
-                                  carrier partners cannot guarantee next day delivery.
-                                </div>
-                              </span>
-
-                              <div id="express-post-cost" class="express-post-cost">
-                                <span>+ $4.90</span>
-                              </div>
-                            </div>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </div>
 
                 <div id="payment-options" class="bordered-content">
                   <header class="bordered-content-header mini primary">
@@ -4434,7 +4438,7 @@
                         target="_blank">Terms and Conditions</a> and to receive marketing communications from us that
                       you can unsubscribe from by the functionality provided for in those communications. To see how we
                       manage your personal information and other details, please see our <a href="/privacy"
-                        target="_blank">Privacy Policy</a> and <a href="/privacy" #collection"=""
+                        target="_blank">Privacy Policy</a> and <a href="/privacy" #collection"="
                         target="_blank">Collection Statement</a></small>
 
 
